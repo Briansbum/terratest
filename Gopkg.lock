@@ -75,6 +75,26 @@
   version = "0.2"
 
 [[projects]]
+  name = "github.com/Briansbum/terratest"
+  packages = [
+    "modules/aws",
+    "modules/collections",
+    "modules/docker",
+    "modules/files",
+    "modules/http-helper",
+    "modules/logger",
+    "modules/packer",
+    "modules/random",
+    "modules/retry",
+    "modules/shell",
+    "modules/ssh",
+    "modules/terraform",
+    "modules/test-structure"
+  ]
+  revision = "9209e7d101dbb730ce5854f03b1418d662640829"
+  version = "v0.9.9"
+
+[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
@@ -123,6 +143,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a06f37538eea4e18f7e2df6fb35244241cbcdfc8b8abd0748d3d949f5eb492e9"
+  inputs-digest = "8ee4462f8c980a16247e60d629a1f45107992c682b0b628dcd9f6e6bcf781950"
   solver-name = "gps-cdcl"
   solver-version = 1

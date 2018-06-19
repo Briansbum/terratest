@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/retry"
-	"github.com/gruntwork-io/terratest/modules/shell"
+	"github.com/Briansbum/terratest/modules/logger"
+	"github.com/Briansbum/terratest/modules/retry"
+	"github.com/Briansbum/terratest/modules/shell"
 )
 
 // RunTerraformCommand runs terraform with the given arguments and options and return stdout/stderr.
