@@ -116,10 +116,19 @@ func mapToHclString(m map[string]interface{}) string {
 // using Sprintf. See ToHclString for details.
 func primitiveToHclString(value interface{}) string {
 	switch v := value.(type) {
-	// Note: due to a Terraform bug, we can't use proper HCL syntax for ints and booleans and instead have
-	// to treat EVERYTHING as a string. For more info, see: https://github.com/hashicorp/terraform/issues/7962
+
+	// Terraform treats a boolean true as a 1 and a boolean false as a 0. It's best to convert to these ints when
+	// passing booleans as -var parameters. Moreover, due to a Terraform bug
+	// (https://github.com/hashicorp/terraform/issues/7962), all ints must be wrapped as strings.
+	case bool:
+		if v {
+			return "\"1\""
+		}
+		return "\"0\""
+
+	// Note: due to a Terraform bug (https://github.com/hashicorp/terraform/issues/7962), we can't use proper HCL
+	// syntax for ints have to wrap them as strings by falling through to the default case
 	//case int: return strconv.Itoa(v)
-	//case bool: return strconv.FormatBool(v)
 
 	default:
 		return fmt.Sprintf("\"%v\"", v)
