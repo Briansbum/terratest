@@ -121,8 +121,8 @@ func TestSliceToHclString(t *testing.T) {
 		{[]interface{}{true}, "[\"1\"]"},
 		{[]interface{}{[]int{1, 2, 3}}, "[[\"1\", \"2\", \"3\"]]"}, // Any value that isn't a primitive is forced into a string
 		{[]interface{}{"foo", 0, false}, "[\"foo\", \"0\", \"0\"]"},
-		{[]interface{}{map[string]interface{}{"foo": "bar", "baz": "blah"}}, "[{foo = \"bar\", baz = \"blah\"}]"},
-		{[]interface{}{map[string]interface{}{"foo": "bar", "baz": "blah"}, map[string]interface{}{"foo": "bar", "baz": "blah"}}, "[{foo = \"bar\", baz = \"blah\"}, {foo = \"bar\", baz = \"blah\"}]"},
+		{[]interface{}{map[string]interface{}{"foo": "bar"}}, "[{foo = \"bar\"}]"},
+		{[]interface{}{map[string]interface{}{"foo": "bar"}, map[string]interface{}{"foo": "bar"}}, "[{foo = \"bar\"}, {foo = \"bar\"}]"},
 	}
 
 	for _, testCase := range testCases {
