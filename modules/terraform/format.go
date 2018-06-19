@@ -6,14 +6,15 @@ import (
 	"strings"
 )
 
-// FormatArgs converts the inputs to a format palatable to terraform. This includes converting the given vars to the format the
-// Terraform CLI expects (-var key=value).
+// FormatArgs converts the inputs to a format palatable to terraform. This includes converting the given vars to the
+// format the Terraform CLI expects (-var key=value).
 func FormatArgs(customVars map[string]interface{}, args ...string) []string {
 	varsAsArgs := FormatTerraformVarsAsArgs(customVars)
 	return append(args, varsAsArgs...)
 }
 
-// FormatTerraformVarsAsArgs formats the given variables as command-line args for Terraform (e.g. of the format -var key=value).
+// FormatTerraformVarsAsArgs formats the given variables as command-line args for Terraform (e.g. of the format
+// -var key=value).
 func FormatTerraformVarsAsArgs(vars map[string]interface{}) []string {
 	args := []string{}
 
@@ -28,9 +29,9 @@ func FormatTerraformVarsAsArgs(vars map[string]interface{}) []string {
 
 // Terraform allows you to pass in command-line variables using HCL syntax (e.g. -var foo=[1,2,3]). Unfortunately,
 // while their golang hcl library can convert an HCL string to a Go type, they don't seem to offer a library to convert
-// arbitrary Go types to an HCL string. Therefore, this method is a VERY simple implementation that correctly handles
-// ints, booleans, non-nested lists, and non-nested maps. Everything else is forced into a string using Sprintf.
-// Hopefully, this approach is good enough for the type of variables we deal with in terratest.
+// arbitrary Go types to an HCL string. Therefore, this method is a simple implementation that correctly handles
+// ints, booleans, lists, and maps. Everything else is forced into a string using Sprintf. Hopefully, this approach is
+// good enough for the type of variables we deal with in Terratest.
 func toHclString(value interface{}) string {
 	// Ideally, we'd use a type switch here to identify slices and maps, but we can't do that, because Go doesn't
 	// support generics, and the type switch only matches concrete types. So we could match []interface{}, but if
@@ -88,24 +89,24 @@ func tryToConvertToGenericMap(value interface{}) (map[string]interface{}, bool) 
 	return genericMap, true
 }
 
-// Convert a non-nested slice to an HCL string. See ToHclString for details.
+// Convert a slice to an HCL string. See ToHclString for details.
 func sliceToHclString(slice []interface{}) string {
 	hclValues := []string{}
 
 	for _, value := range slice {
-		hclValue := primitiveToHclString(value)
+		hclValue := toHclString(value)
 		hclValues = append(hclValues, hclValue)
 	}
 
 	return fmt.Sprintf("[%s]", strings.Join(hclValues, ", "))
 }
 
-// Convert a non-nested map to an HCL string. See ToHclString for details.
+// Convert a map to an HCL string. See ToHclString for details.
 func mapToHclString(m map[string]interface{}) string {
 	keyValuePairs := []string{}
 
 	for key, value := range m {
-		keyValuePair := fmt.Sprintf("%s = %s", key, primitiveToHclString(value))
+		keyValuePair := fmt.Sprintf("%s = %s", key, toHclString(value))
 		keyValuePairs = append(keyValuePairs, keyValuePair)
 	}
 
