@@ -6,11 +6,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/google/uuid"
+	"github.com/gruntwork-io/terratest/modules/logger"
 )
 
 // CreateRandomQueue creates a new SQS queue with a random name that starts with the given prefix and return the queue URL.
