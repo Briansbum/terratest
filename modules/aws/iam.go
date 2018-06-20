@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Briansbum/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/iam"

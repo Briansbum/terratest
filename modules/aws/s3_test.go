@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/Briansbum/terratest/modules/logger"
-	"github.com/Briansbum/terratest/modules/random"
+	"github.com/gruntwork-io/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/random"
 )
 
 func TestCreateAndDestroyS3Bucket(t *testing.T) {
